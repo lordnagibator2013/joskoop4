@@ -32,4 +32,4 @@ class Task
         TasksList.ItemsSource = null;
         TasksList.ItemsSource = _tasks;
     }
-}
+} 
