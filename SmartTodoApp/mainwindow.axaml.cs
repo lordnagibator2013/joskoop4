@@ -1,35 +1,49 @@
-using System;
+using Avalonia.Controls;
+using Avalonia.Interactivity;
+using System.Collections.Generic;
 
-namespace MainWindow;
-
-class Task
+namespace SmartTodoApp.Views
 {
-    public int id;
-    public string title;
-    public bool isDone;
-
-    private List<TaskItem> _tasks = new();
-    private int _nextId = 1;
-
-    private void AddTask_Click(object sender, RoutedEventArgs e)
+    public partial class MainWindow : Window
     {
-        if (!string.IsNullOrWhiteSpace(TaskInput.Text))
+        public class Task
         {
-            _tasks.Add(new TaskItem
-            {
-                id = _nextId++,
-                title = TaskInput.Text,
-                isDone = false
-            });
+            public int id { get; set; }
+            public string title { get; set; } = "";
+            public bool isDone { get; set; }
+        }
 
-            TaskInput.Text = "";
+        private List<Task> _tasks = new();
+        private int _nextId = 1;
+
+        public MainWindow()
+        {
+            InitializeComponent();
+            
+            _tasks.Add(new Task { id = _nextId++, title = "Тестовая задача", isDone = false });
             UpdateTaskList();
         }
-    }
 
-    private void UpdateTaskList()
-    {
-        TasksList.ItemsSource = null;
-        TasksList.ItemsSource = _tasks;
+        private void AddTask_Click(object sender, RoutedEventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(TaskInput.Text))
+            {
+                _tasks.Add(new Task
+                {
+                    id = _nextId++,
+                    title = TaskInput.Text,
+                    isDone = false
+                });
+
+                TaskInput.Text = "";
+                UpdateTaskList();
+            }
+        }
+
+        private void UpdateTaskList()
+        {
+            TasksList.ItemsSource = null;
+            TasksList.ItemsSource = _tasks;
+        }
     }
-} 
+}
