@@ -14,9 +14,15 @@
                 <TextBox x:Name="TaskInput" 
                          Watermark="Введите новую задачу..."
                          Width="300"/>
+                         
                 <Button Content="Добавить" 
                         Click="AddTask_Click"
                         Background="#0078d4" 
+                        Foreground="White"/>
+
+                <Button Content="🗑️ Удалить" 
+                        Click="DeleteTask_Click"
+                        Background="#d13438" 
                         Foreground="White"/>
             </StackPanel>
         </Border>
@@ -33,7 +39,6 @@
             </ListBox>
         </Border>
         
-        <!-- Статистика -->
         <TextBlock x:Name="StatsText" 
                    Text="Задач: 0"
                    HorizontalAlignment="Center"

@@ -36,5 +36,14 @@ namespace SmartTodoApp.Services
         {
             return new List<TaskItem>(_tasks);
         }
+
+        public void DeleteTask(int id)
+        {
+            var task = _tasks.FirstOrDefault(t => t.Id == id);
+            if (task != null)
+            {
+                _tasks.Remove(task);
+            }
+        }
     }
 }

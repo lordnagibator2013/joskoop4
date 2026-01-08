@@ -14,8 +14,9 @@ namespace SmartTodoApp.Presenters
         {
             _view = view;
             _repository = Singleton.Instance;
-            
+
             _view.AddTaskRequested += OnAddTask;
+            _view.DeleteTaskRequested += OnDeleteTask;
             LoadTasks();
         }
 
@@ -29,15 +30,25 @@ namespace SmartTodoApp.Presenters
         {
             if (!string.IsNullOrWhiteSpace(_view.NewTaskTitle))
             {
-                var task = new TaskItem 
-                { 
-                    Title = _view.NewTaskTitle, 
-                    IsCompleted = false 
+                var task = new TaskItem
+                {
+                    Title = _view.NewTaskTitle,
+                    IsCompleted = false
                 };
-                
+
                 _repository.AddTask(task);
                 LoadTasks();
                 _view.ClearTaskInput();
+            }
+        }
+        
+        private void OnDeleteTask()
+        {
+            var taskId = _view.GetSelectedTaskId();
+            if (taskId.HasValue)
+            {
+                _repository.DeleteTask(taskId.Value);
+                LoadTasks();
             }
         }
     }

@@ -8,6 +8,9 @@ namespace SmartTodoApp.Views
     {
         event Action AddTaskRequested;
         
+        event Action DeleteTaskRequested;
+        int? GetSelectedTaskId();
+        
         string NewTaskTitle { get; }
         
         void DisplayTasks(List<TaskItem> tasks);

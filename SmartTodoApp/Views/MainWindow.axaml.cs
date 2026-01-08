@@ -35,5 +35,21 @@ namespace SmartTodoApp.Views
         {
             AddTaskRequested?.Invoke();
         }
+
+        public event Action DeleteTaskRequested;
+
+        public int? GetSelectedTaskId()
+        {
+            if (TasksList.SelectedItem is Models.TaskItem task)
+            {
+                return task.Id;
+            }
+            return null;
+        }
+
+        private void DeleteTask_Click(object sender, RoutedEventArgs e)
+        {
+            DeleteTaskRequested?.Invoke();
+        }
     }
 }
