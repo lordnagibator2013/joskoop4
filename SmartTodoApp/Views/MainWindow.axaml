@@ -45,7 +45,7 @@
         
         <Border Background="White" CornerRadius="8" Padding="15">
             <StackPanel>
-                <TextBlock Text="Сортировка:" FontWeight="SemiBold" Margin="0,0,0,10"/>
+                <TextBlock Text="Сортировка:" FontWeight="SemiBold" Margin="0,0,0,10" Foreground="#7a2525ff"/>
                 <StackPanel Orientation="Horizontal" Spacing="10">
                     <Button Content="📝 По названию" 
                             Click="SortByName"

@@ -2,6 +2,7 @@ using Avalonia.Controls;
 using Avalonia.Interactivity;
 using SmartTodoApp.Models;
 using SmartTodoApp.Presenters;
+using SmartTodoApp.Strategy;
 using System;
 using System.Collections.Generic;
 
@@ -11,7 +12,9 @@ namespace SmartTodoApp.Views
     {
         public event Action? AddTaskRequested;
         public event Action? DeleteTaskRequested;
-        public string NewTaskTitle => TaskInput.Text;
+        public event Action? SortByNameRequested;
+        public event Action? SortByStatusRequested;
+        public string NewTaskTitle => TaskInput.Text ?? string.Empty;
         
         private MainPresenter _presenter;
 
@@ -53,12 +56,20 @@ namespace SmartTodoApp.Views
 
         private void SortByName(object sender, RoutedEventArgs e)
         {
-
+            SortByNameRequested?.Invoke();
         }
-        
+
         private void SortByStatus(object sender, RoutedEventArgs e)
         {
-            
+            SortByStatusRequested?.Invoke();
+        }
+        
+        public void UpdateStatistics(int total, int completed)
+        {
+            if (StatsText != null)
+            {
+                StatsText.Text = $"Всего задач: {total} | Выполнено: {completed}";
+            }
         }
     }
 }
