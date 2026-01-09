@@ -1,8 +1,7 @@
 using SmartTodoApp.Models;
 using SmartTodoApp.Services;
-using SmartTodoApp.Views;
 using SmartTodoApp.Strategy;
-using System.Linq;
+using SmartTodoApp.Views;
 using System.Collections.Generic;
 
 namespace SmartTodoApp.Presenters
@@ -11,30 +10,32 @@ namespace SmartTodoApp.Presenters
     {
         private readonly IMainView _view;
         private readonly Singleton _repository;
-        private ISortStrategy _sortStrategy;
+        private readonly SortManager _sortManager;
+        private readonly StatisticsService _statisticsService;
 
         public MainPresenter(IMainView view)
         {
             _view = view;
             _repository = Singleton.Instance;
-            _sortStrategy = new SortByNameStrategy();
+            _sortManager = new SortManager();
+            _statisticsService = new StatisticsService();
 
             _view.AddTaskRequested += OnAddTask;
             _view.DeleteTaskRequested += OnDeleteTask;
             _view.SortByNameRequested += OnSortByNameRequested;
             _view.SortByStatusRequested += OnSortByStatusRequested;
+            
             LoadTasks();
         }
 
         private void LoadTasks()
         {
             var tasks = _repository.GetAllTasks();
-            var sortedTasks = _sortStrategy.Sort(tasks);
+            var sortedTasks = _sortManager.SortTasks(tasks);
             _view.DisplayTasks(sortedTasks);
             
-            int total = tasks.Count;
-            int completed = tasks.Count(t => t.IsCompleted);
-            _view.UpdateStatistics(total, completed);
+            var stats = _statisticsService.CalculateStatistics(tasks);
+            _view.UpdateStatistics(stats.Total, stats.Completed);
         }
 
         private void OnAddTask()
@@ -65,13 +66,13 @@ namespace SmartTodoApp.Presenters
 
         private void OnSortByNameRequested()
         {
-            _sortStrategy = new SortByNameStrategy();
+            _sortManager.SetStrategy(new SortByNameStrategy());
             LoadTasks();
         }
         
         private void OnSortByStatusRequested()
         {
-            _sortStrategy = new SortByStatusStrategy();
+            _sortManager.SetStrategy(new SortByStatusStrategy());
             LoadTasks();
         }
     }
