@@ -26,8 +26,11 @@ namespace SmartTodoApp.Views
 
         public void DisplayTasks(List<TaskItem> tasks)
         {
-            TasksList.ItemsSource = null;
-            TasksList.ItemsSource = tasks;
+            if (TasksList != null)
+            {
+                TasksList.ItemsSource = null;
+                TasksList.ItemsSource = tasks;
+            }
         }
 
         public void ClearTaskInput()

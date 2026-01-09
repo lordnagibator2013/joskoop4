@@ -49,10 +49,14 @@
                 <StackPanel Orientation="Horizontal" Spacing="10">
                     <Button Content="📝 По названию" 
                             Click="SortByName"
-                            Width="140"/>
+                            Width="140"
+                            Background="#4CAF50"
+                            Foreground="White"/>
                     <Button Content="✓ По статусу" 
                             Click="SortByStatus"
-                            Width="140"/>
+                            Width="140"
+                            Background="#2196F3"
+                            Foreground="White"/>
                 </StackPanel>
             </StackPanel>
         </Border>
