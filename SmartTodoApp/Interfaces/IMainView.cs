@@ -6,9 +6,9 @@ namespace SmartTodoApp.Views
 {
     public interface IMainView
     {
-        event Action AddTaskRequested;
+        event Action? AddTaskRequested;
         
-        event Action DeleteTaskRequested;
+        event Action? DeleteTaskRequested;
         int? GetSelectedTaskId();
         
         string NewTaskTitle { get; }

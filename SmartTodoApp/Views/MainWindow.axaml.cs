@@ -9,7 +9,8 @@ namespace SmartTodoApp.Views
 {
     public partial class MainWindow : Window, IMainView
     {
-        public event Action AddTaskRequested;
+        public event Action? AddTaskRequested;
+        public event Action? DeleteTaskRequested;
         public string NewTaskTitle => TaskInput.Text;
         
         private MainPresenter _presenter;
@@ -31,12 +32,10 @@ namespace SmartTodoApp.Views
             TaskInput.Text = "";
         }
 
-        private void AddTask_Click(object sender, RoutedEventArgs e)
+        private void AddTask(object sender, RoutedEventArgs e)
         {
             AddTaskRequested?.Invoke();
         }
-
-        public event Action DeleteTaskRequested;
 
         public int? GetSelectedTaskId()
         {
@@ -47,9 +46,19 @@ namespace SmartTodoApp.Views
             return null;
         }
 
-        private void DeleteTask_Click(object sender, RoutedEventArgs e)
+        private void DeleteTask(object sender, RoutedEventArgs e)
         {
             DeleteTaskRequested?.Invoke();
+        }
+
+        private void SortByName(object sender, RoutedEventArgs e)
+        {
+
+        }
+        
+        private void SortByStatus(object sender, RoutedEventArgs e)
+        {
+            
         }
     }
 }

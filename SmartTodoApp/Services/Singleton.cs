@@ -1,11 +1,12 @@
 using SmartTodoApp.Models;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SmartTodoApp.Services
 {
     public class Singleton
     {
-        private static Singleton _instance;
+        private static Singleton? _instance;
         private List<TaskItem> _tasks;
         private int _nextId = 1;
 
