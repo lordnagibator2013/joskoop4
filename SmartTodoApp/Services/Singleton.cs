@@ -1,12 +1,13 @@
+using SmartTodoApp.Interfaces;
 using SmartTodoApp.Models;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace SmartTodoApp.Services
 {
-    public class Singleton
+    public class Singleton : IRepository
     {
-        private static Singleton? _instance;
+        private static Singleton _instance;
         private List<TaskItem> _tasks;
         private int _nextId = 1;
 
@@ -19,10 +20,7 @@ namespace SmartTodoApp.Services
         {
             get
             {
-                if (_instance == null)
-                {
-                    _instance = new Singleton();
-                }
+                _instance ??= new Singleton();
                 return _instance;
             }
         }
@@ -33,11 +31,6 @@ namespace SmartTodoApp.Services
             _tasks.Add(task);
         }
 
-        public List<TaskItem> GetAllTasks()
-        {
-            return new List<TaskItem>(_tasks);
-        }
-
         public void DeleteTask(int id)
         {
             var task = _tasks.FirstOrDefault(t => t.Id == id);
@@ -45,6 +38,11 @@ namespace SmartTodoApp.Services
             {
                 _tasks.Remove(task);
             }
+        }
+
+        public List<TaskItem> GetAllTasks()
+        {
+            return new List<TaskItem>(_tasks);
         }
     }
 }

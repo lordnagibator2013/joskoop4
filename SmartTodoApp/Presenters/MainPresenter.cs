@@ -1,3 +1,4 @@
+using SmartTodoApp.Interfaces;
 using SmartTodoApp.Models;
 using SmartTodoApp.Services;
 using SmartTodoApp.Strategy;
@@ -9,7 +10,7 @@ namespace SmartTodoApp.Presenters
     public class MainPresenter
     {
         private readonly IMainView _view;
-        private readonly Singleton _repository;
+        private readonly IRepository _repository;
         private readonly SortManager _sortManager;
         private readonly StatisticsService _statisticsService;
 
